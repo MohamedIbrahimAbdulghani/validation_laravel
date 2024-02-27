@@ -25,11 +25,27 @@
     
 
     <div class="container">
+
         <form action="{{route('posts.store')}}" method="post" class="p-3 mt-3">
             @csrf 
             <h1 class="text-center">Add New Post</h1>
-            <input type="text" name="title" class="form-control mb-3" placeholder="Please, Enter Title">
-            <input type="text" name="body" class="form-control mb-3" placeholder="Please, Enter Body">
+                <!-- @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif -->
+            <input type="text" name="title" value="{{old('title')}}" class="form-control mb-3 @error('title') is-invalid @enderror" placeholder="Please, Enter Title">
+            @error('title')
+            <div class="alert alert-danger">{{$message}}</div>
+            @enderror
+            <input type="text" name="body" value="{{old('body')}}" class="form-control mb-3 @error('body') is-invalid @enderror" placeholder="Please, Enter Body">
+            @error('body')
+            <div class="alert alert-danger">{{$message}}</div>
+            @enderror
             <button type="submit" class="btn btn-primary d-table m-auto">Add</button>
         <a href="{{route('posts.index')}}">show All Posts</a>
         </form>
