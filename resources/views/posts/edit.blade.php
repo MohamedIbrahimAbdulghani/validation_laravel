@@ -30,7 +30,7 @@
             @csrf 
             <h1 class="text-center">Edit Post : {{$post->title}}</h1>
             <input type="text" name="title" class="form-control mb-3" value="{{$post->title}}">
-            <input type="text" name="body" class="form-control mb-3" value="{{$post->title}}">
+            <input type="text" name="body" class="form-control mb-3" value="{{$post->body}}">
             <button type="submit" class="btn btn-primary d-table m-auto">Add</button>
         <a href="{{route('posts.index')}}">show All Posts</a>
         </form>
