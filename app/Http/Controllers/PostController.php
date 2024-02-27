@@ -14,6 +14,8 @@ class PostController extends Controller
      */
     public function index()
     {
+        $posts = Post::all();
+        return view("posts/index", compact("posts"));
     }
 
     /**
@@ -23,6 +25,7 @@ class PostController extends Controller
      */
     public function create()
     {
+        return view("posts/create");
     }
 
     /**
@@ -33,6 +36,11 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        Post::create([
+            "title"=>$request->title,
+            "body"=>$request->body
+        ]);
+        return redirect()->route("posts.index");
     }
 
     /**
@@ -54,6 +62,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
+        $post = Post::findOrFail($id);
+        return view("posts/edit", compact("post"));
     }
 
     /**
@@ -65,7 +75,11 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        Post::findOrFail($id)->update([
+            "title"=>$request->title,
+            "body"=>$request->body,
+        ]);
+        return redirect()->route("posts.index");
     }
 
     /**
@@ -74,9 +88,8 @@ class PostController extends Controller
      * @param  \App\Models\post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(post $post)
     {
+        //
     }
-
-
 }
