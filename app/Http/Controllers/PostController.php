@@ -49,9 +49,10 @@ class PostController extends Controller
      * @param  \App\Models\post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(post $post)
+    public function show($id)
     {
-        //
+        $delete_posts = Post::onlyTrashed()->get();
+        return view("posts/show_delete", compact("delete_posts"));
     }
 
     /**
@@ -88,8 +89,23 @@ class PostController extends Controller
      * @param  \App\Models\post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(post $post)
+    public function destroy($id)
     {
-        //
+        Post::findOrFail($id)->delete();
+        return redirect()->route("posts.index");
+    }
+
+    // this is function to restore deleted data from database
+    public function restore($id)
+    {
+        Post::onlyTrashed()->where("id", $id)->restore();
+        return redirect()->back();
+    }
+
+    // this is function to delete items forever from dastabase
+    public function force_delete($id)
+    {
+        Post::onlyTrashed()->where("id", $id)->forceDelete();
+        return redirect()->back();
     }
 }

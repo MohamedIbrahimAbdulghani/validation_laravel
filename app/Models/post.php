@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class post extends Model
 {
-    protected $fillable=["title", "body"];
     use HasFactory;
+    protected $fillable=["title", "body"];
     use SoftDeletes;
 }
